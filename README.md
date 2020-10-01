@@ -1,2 +1,2 @@
-# bot
-Discord bot developed by 𝓟𝓻𝓸𝓾𝓭𝓶𝓾𝓼𝓵𝓲𝓶#5818 and SirNapkin1334#7960
+# Society Overseer Rewrite
+Done to implement cogs and make the bot code readable
