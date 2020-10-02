@@ -10,6 +10,7 @@ class Moderation(commands.Cog):
 		self.client = client
 		self.devs = [252104964753719296, 573986854366347274]
 
+
 	@commands.command(aliases=["bean", "bonk"])
 	@commands.has_permissions(ban_members=True)
 	@commands.bot_has_permissions(ban_members=True)
@@ -23,6 +24,7 @@ class Moderation(commands.Cog):
 		await member.kick(reason=reason)
 
 
+	@commands.has_permissions(ban_members=True)
 	@commands.bot_has_permissions(ban_members=True)
 	async def brokenban(self, ctx, *args):
 		"""WIP"""
@@ -62,6 +64,7 @@ class Moderation(commands.Cog):
 			for y in bans.keys():  # NOW THIS IS COMPACTNESS
 				await ctx.send("\n".join([f"{y}:"] + bans[y])) if bans[y] else 0
 
+	@commands.has_permissions(kick_members=True)
 	@commands.bot_has_permissions(kick_members=True)
 	async def brokenkick(self, ctx, *member):
 		"""WIP"""
