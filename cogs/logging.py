@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from datetime import datetime
 
+
 class Logging(commands.Cog):
     """Logging Commands"""
 
@@ -26,18 +27,16 @@ class Logging(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
-        channel = discord.utils.get(message.guild.channels, name="logs")
-        if before.content != after.content:
-            embed = discord.Embed(title="Message edit",
-                                    description=f"Edit by {after.author.display_name}.",
-                                    colour=after.author.colour,
-                                    timestamp=datetime.utcnow())
+        channel = discord.utils.get(before.guild.channels, name="logs")
+        if before.content != after.content and before.guild.id in [743073728853835828]:
+            embed = discord.Embed(title=f"Message edited in #{before.channel.name} by {before.author}",
+                                  timestamp=datetime.utcnow(), color=discord.Colour.from_rgb(255, 150, 53))
 
-            fields = [("Before", before.content, False),
-                          ("After", after.content, False)]
-
-            for name, value, inline in fields:
-            embed.add_field(name=name, value=value, inline=inline)
+            embed.add_field(name="Original Message", value=before.content)
+            embed.add_field(name="Edited Message", value=after.content)
+            embed.set_footer(
+                icon_url="https://cdn.discordapp.com/avatars/573986854366347274/76b36e11e0757464a6477f480bf5f543.webp?size=1024",
+                text="Developed by 𝓟𝓻𝓸𝓾𝓭𝓶𝓾𝓼𝓵𝓲𝓶#5818")
 
             await channel.send(embed=embed)
 
