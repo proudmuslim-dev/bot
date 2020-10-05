@@ -28,7 +28,7 @@ class Logging(commands.Cog):
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
         channel = discord.utils.get(before.guild.channels, name="logs")
-        if before.content != after.content and before.guild.id in [743073728853835828]:
+        if before.guild.id in [743073728853835828] and before.content != after.content:
             embed = discord.Embed(title=f"Message edited in #{before.channel.name} by {before.author}",
                                   timestamp=datetime.utcnow(), color=discord.Colour.from_rgb(255, 150, 53))
 

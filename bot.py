@@ -21,7 +21,7 @@ class BotPlus(commands.Bot):
 		else:
 			super().run(token)
 
-client = BotPlus(command_prefix=">>", case_insensitive=True)
+client = BotPlus(command_prefix=">", case_insensitive=True)
 
 if __name__ == "__main__": # Nice code
 	cprint("Loading extensions...", "green", attrs=["bold"]) # IT HAS TAKEN ME COMBINED...not long actually probably like
