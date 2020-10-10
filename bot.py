@@ -18,6 +18,7 @@ class BotPlus(commands.Bot):
 			with open("auth.json") as w:
 				token = json.load(w)["TOKEN"]
 			self.run(token)
+
 		else:
 			super().run(token)
 
@@ -49,11 +50,7 @@ async def on_ready():
 	cprint(f"Logged in as @{client.user} ({client.user.id})", "green", attrs=["bold"])
 	bg2 = time.perf_counter_ns()
 	cprint(f"Finished initialization in {(bg2-bg1)/1000000.0}ms!", "green", attrs=["bold"])
-	await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="Rick Astley"))
-
-@client.event
-async def on_member_join(member):
-	channel = discord.utils.get(member.guild.channels, name="welcome-logs")
+	await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="The infinite expanse of our universe"))
 
 
 @client.event
