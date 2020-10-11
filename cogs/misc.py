@@ -87,17 +87,6 @@ class Misc(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="howcoolis", aliases=["coolrating"])
-    async def how_cool(self, ctx, member: discord.Member = None):
-        if ctx.author.id == 206442358349365248:
-            await ctx.send("The coolest being in the entire universe")
-
-        if not member:
-            member = ctx.author
-
-        else:
-            responses = ["not cool", "semi cool", "very cool", "extremely cool"]
-            await ctx.send(f"{member.mention} is {r.choice(responses)}")
 
     @commands.command()
     async def invite(self, ctx):
@@ -107,18 +96,6 @@ class Misc(commands.Cog):
         embed.set_footer(icon_url=ctx.author.avatar_url, text=f"Requested by: {ctx.author.name}")
 
         await ctx.send(embed=embed)
-
-    @commands.command()
-    async def srules(self, ctx):
-        embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
-        rules = "1. No swearing"
-        rules += "\n2. Follow Channel Topics"
-        rules += "\n3. Be respectful to others"
-        rules += "\n4. Discord [Community Guidelines](https://discordapp.com/guidelines) and [TOS](https://discordapp.com/terms)"
-        rules += "\n5. Report anything bad to 𝓟𝓻𝓸𝓾𝓭𝓶𝓾𝓼𝓵𝓲𝓶#5818 or Mrs.Sweiven"
-        embed.add_field(name="Rules for Mrs.Sweiven's Class Discord", value=rules)
-        if ctx.guild.id in [763493055771705385]:
-            await ctx.send(embed=embed)
 
 
 
