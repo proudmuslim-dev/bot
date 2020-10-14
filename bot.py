@@ -56,6 +56,9 @@ async def on_ready():
 @client.event
 async def on_command_error(ctx, error):
 	if not isinstance(error, discord.ext.commands.errors.CommandNotFound):
-		await ctx.send(error)
+            embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
+            embed.add_field(name="Error when running command", value=f"```py {error} ```")
+
+            await ctx.send(embed=embed)
 
 client.run()

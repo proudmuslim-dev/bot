@@ -26,44 +26,6 @@ class Administration(commands.Cog):
 		else: 
 			await ctx.send(":x: You are not one of my owners and therefore are incapable of ameliorating yourself to the stations required to operate this command.")
 
-
-	@commands.command(hidden=True)
-	@commands.check(is_owner)
-	async def reload(self, ctx, *ext):
-		"""Reloads extensions"""
-
-		if ext:
-			for x in ext:
-				try:
-					self.client.reload_extension(x)
-
-				except Exception as e:  # todo: log this
-					if ctx is not None:
-						await ctx.send(
-							"Couldn't find extension {x}!" if isinstance(e, commands.errors.ExtensionNotFound)
-							else f"Error occurred reloading extension {x}:\n{e}")
-					cprint(f"Error occurred reloading extension {x}:\n{e}", "red")
-
-				else:
-					if ctx is not None:
-						await ctx.send(f"Successfully reloaded extension {x}!")
-					cprint(f"Successfully reloaded extension {x}!", "green")
-
-		else:
-			for x in os.listdir(os.fsencode("cogs"))[1:]:
-				try:
-					self.client.reload_extension(x.decode()[:-3])
-
-				except Exception as e:  # todo: log this
-					cprint(f"Error occurred reloading extension {x.decode()[:-3]}:\n{e}", "red")
-					if ctx is not None:
-						await ctx.send(f"Error occurred reloading extension {x.decode()[:-3]}:\n{e}")
-
-				else:
-					if ctx is not None:
-						await ctx.send(f"Successfully reloaded extension {x.decode()[:-3]}!")
-					cprint(f"Successfully reloaded extension {x.decode()[:-3]}!", "green")
-
 	# Copyright (c) 2015 Rapptz - Modified Slightly
 	@commands.command(hidden=True, name="eval")
 	@commands.check(is_owner)
