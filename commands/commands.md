@@ -21,6 +21,7 @@
 
 ## User Commands
 | Command      | Usage           | Function                                                                                                                       | Flags | Aliases                       |
+|--------------|-----------------|--------------------------------------------------------------------------------------------------------------------------------|-------|-------------------------------|
 | Avatar       | >av {user}      | Sends the given user's profile picture, defaults to message author                                                             | None  | avatar                        |
 | Whois        | >whois {user}   | Sends an embed containing information for the user, defaults to message author                                                 | None  | user, info                    |
 | Roles        | >roles {user}   | Sends an embed listing all of the user's roles and the total number of roles they have, defaults to message author             | None  | None                          |
