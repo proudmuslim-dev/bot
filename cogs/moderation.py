@@ -185,7 +185,7 @@ class Moderation(commands.Cog):
 				await ctx.send("\n".join([f"{y}:"] + unmutes[y])) if unmutes[y] else 0
 
 
-	@commands.command(aliases=['cs'])
+	@commands.command(aliases=['cs', "channel"])
 	@commands.has_permissions(manage_channels=True)
 	async def channelstats(self, ctx): 
 		channel = ctx.channel 
@@ -228,7 +228,7 @@ class Moderation(commands.Cog):
 		await ctx.send(f"Total channels: {x}")
 				
 
-	@commands.command()
+	@commands.command(aliases=["wipe"])
 	@commands.has_permissions(manage_messages=True)
 	async def purge(self, ctx, amount: int, silent=None):
 		if silent == "--silent":
