@@ -22,8 +22,8 @@
 ## User Commands
 | Command      | Usage           | Function                                                                                                                       | Flags | Aliases                       |
 |--------------|-----------------|--------------------------------------------------------------------------------------------------------------------------------|-------|-------------------------------|
-| Avatar       | >av {user}      | Sends the given user's profile picture, defaults to message author                                                             | None  | avatar                        |
-| Whois        | >whois {user}   | Sends an embed containing information for the user, defaults to message author                                                 | None  | user, info                    |
-| Roles        | >roles {user}   | Sends an embed listing all of the user's roles and the total number of roles they have, defaults to message author             | None  | None                          |
-| CreationDate | >created {user} | Sends and embed containing the date and time (UTC) when the account was created, defaults to message author                    | None  | creation, cdate, creationdate |
-| JoinDate     | >joined {user}  | Sends and embed containing the date and time (UTC) when the account joined the guild, defaults to message author               | None  | jd, joindate                  |
+| Avatar       | >av {user}      | Sends the given user's profile picture, defaults to message author.                                                             | None  | avatar                        |
+| Whois        | >whois {user}   | Sends an embed containing information for the user, defaults to message author.                                                 | None  | user, info                    |
+| Roles        | >roles {user}   | Sends an embed listing all of the user's roles and the total number of roles they have, defaults to message author.             | None  | None                          |
+| CreationDate | >created {user} | Sends and embed containing the date and time (UTC) when the account was created, defaults to message author.                    | None  | creation, cdate, creationdate |
+| JoinDate     | >joined {user}  | Sends and embed containing the date and time (UTC) when the account joined the guild, defaults to message author.               | None  | jd, joindate                  |
