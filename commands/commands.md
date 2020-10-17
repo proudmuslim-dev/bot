@@ -11,13 +11,16 @@
 | Channelstats | >cs                   | Sends an embed with channel stats | cs    | None                                                            |
 | Prefix       | >prefix {prefix}      | Changes server prefix             | None  | None                                                            |
 
-## Utility Commands
+## Guild Commands
 | Command      | Usage           | Function                                                                                                                       | Flags | Aliases                       |
 |--------------|-----------------|--------------------------------------------------------------------------------------------------------------------------------|-------|-------------------------------|
 | Total        | >total          | Sends an embed showing the total number of users, channels, and roles in the guild. [Example](https://i.imgur.com/GabdfdE.png) | None  | None                          |
 | Guild        | >guild          | Sends an embed displaying guild information. [Example](https://i.imgur.com/B6ENXTt.png)                                        | None  | Server, g, s                  |
 | Members      | >members        | Sends an embed with the total number of users in the guild. [Example](https://i.imgur.com/VVJxac7.png)                         | None  | None                          |
 | Guildid      | >guildid        | Sends an embed with the guild id. [Example](https://i.imgur.com/KF8OJZ5.png)                                                   | None  | Gid                           |
+
+## User Commands
+| Command      | Usage           | Function                                                                                                                       | Flags | Aliases                       |
 | Avatar       | >av {user}      | Sends the given user's profile picture, defaults to message author                                                             | None  | avatar                        |
 | Whois        | >whois {user}   | Sends an embed containing information for the user, defaults to message author                                                 | None  | user, info                    |
 | Roles        | >roles {user}   | Sends an embed listing all of the user's roles and the total number of roles they have, defaults to message author             | None  | None                          |
