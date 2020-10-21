@@ -102,11 +102,7 @@ class Misc(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=["spam"])
-    async def this_is_a_spam_command(self, ctx):
-        embed = discord.Embed(title="Test", color=discord.Colour.from_rgb(255, 150, 53))
-
-
+    
 def setup(client):
     client.add_cog(Misc(client))
 
