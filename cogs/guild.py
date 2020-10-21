@@ -39,7 +39,7 @@ class Server(commands.Cog):
 
 	@commands.command()
 	async def members(self, ctx):
-		embed = discord.Embed(color=discord.Colour.from_rgb(255, 0, 0))
+		embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
 		embed.set_thumbnail(url=ctx.guild.icon_url)
 		embed.add_field(name=f"**Total Members for {ctx.guild.name}:**", value=len(ctx.guild.members))
 

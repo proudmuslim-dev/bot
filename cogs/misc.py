@@ -93,7 +93,7 @@ class Misc(commands.Cog):
         await ctx.send(embed=embed)
 
 
-    @commands.command()
+    @commands.command(aliases=["inv"])
     async def invite(self, ctx):
         embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
         embed.add_field(name="Invite for Overseer",
@@ -102,6 +102,9 @@ class Misc(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @commands.command(aliases=["spam"])
+    async def this_is_a_spam_command(self, ctx):
+        embed = discord.Embed(title="Test", color=discord.Colour.from_rgb(255, 150, 53))
 
 
 def setup(client):

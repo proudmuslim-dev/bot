@@ -47,14 +47,18 @@ class Administration(commands.Cog):
 			body = body.strip("` \n")
 		stdout = io.StringIO()
 
-		to_compile = f"""import discord, os, math, sys, asyncio, termcolor, json, re
+		to_compile = f"""import discord, os, math, sys, asyncio, json, re
 async def func():\n{textwrap.indent(body, "  ")}"""
 
 		try:
 			exec(to_compile, env)
 
 		except Exception as e:
-			return await ctx.send(f"```py\n{e.__class__.__name__}: {e}\n```")
+			val = f"```py\n{e.__class__.__name__}: {e}\n```"
+			embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
+			embed.add_field(name="Traceback", value=val)
+			embed.set_footer(icon_url=ctx.author.avatar_url, text=f"Evaluator: {ctx.author.name}")
+			return await ctx.send(embed=embed)
 
 		func = env["func"]
 
@@ -66,6 +70,7 @@ async def func():\n{textwrap.indent(body, "  ")}"""
 			value = stdout.getvalue()
 			embed = discord.Embed(color=discord.Colour.from_rgb(255, 130, 53))
 			embed.add_field(name="Exception", value=f"```py\n{value}{traceback.format_exc()}\n```")
+			embed.set_footer(icon_url=ctx.author.avatar_url, text=f"Evaluator: {ctx.author.name}")
 			await ctx.send(embed=embed)
 
 		else:
@@ -81,6 +86,7 @@ async def func():\n{textwrap.indent(body, "  ")}"""
 				if value:
 					embed = discord.Embed(color=discord.Colour.from_rgb(255, 130, 53))
 					embed.add_field(name="Output", value=f"```py\n{value}\n```")
+					embed.set_footer(icon_url=ctx.author.avatar_url, text=f"Evaluator: {ctx.author.name}")
 
 					await ctx.send(embed=embed)
 
@@ -88,6 +94,8 @@ async def func():\n{textwrap.indent(body, "  ")}"""
 				self._last_result = ret
 				embed = discord.Embed(color=discord.Colour.from_rgb(255, 130, 53))
 				embed.add_field(name="Output", value=f"```py\n{value}{ret}\n```")
+				embed.add_field(name="Return Type", value=f"```py\n{type(ret)}\n```", inline=False)
+				embed.set_footer(icon_url=ctx.author.avatar_url, text=f"Evaluator: {ctx.author.name}")
 
 				await ctx.send(embed=embed)
 					
@@ -98,5 +106,3 @@ def setup(client):
 	client.add_cog(Administration(client))
 
 
-def teardown(client):
-	client.remove_cog(Administration.__name__)
