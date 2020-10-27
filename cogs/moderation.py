@@ -27,6 +27,31 @@ class Moderation(commands.Cog):
 		await ctx.send(":white_check_mark: Successfully kicked user")
 
 
+	@commands.command(aliases=["m"])
+	@commands.has_permissions(manage_roles=True)
+	@commands.bot_has_permissions(manage_roles=True)
+	async def mute(self, ctx, member: discord.Member, *, reason=None):
+		for role in ctx.guild.roles:
+			if role.name.lower() == "muted":
+				await member.add_roles(discord.utils.get(ctx.guild.roles, name="muted"))
+				embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
+				embed.add_field(name="Success", value=f":white_check_mark: {member.name}#{member.discriminator} was muted successfully.")
+				embed.set_footer(icon_url=ctx.author.avatar_url, text=f"Muted by: {ctx.author.name}#{ctx.author.discriminator}")
+				await ctx.send(embed=embed)
+
+				role_exists = True
+				return role_exists
+
+		if not role_exists:
+			await ctx.guild.create_role(name="muted")
+			await member.add_roles(discord.utils.get(ctx.guild.roles, name="muted"))
+			await ctx.send(f":white_check_mark: {member.name} was muted")
+
+		
+
+
+
+
 	@commands.has_permissions(ban_members=True)
 	@commands.bot_has_permissions(ban_members=True)
 	async def brokenban(self, ctx, *args):
@@ -108,7 +133,7 @@ class Moderation(commands.Cog):
 
 	@commands.command()
 	@commands.bot_has_permissions(manage_roles=True)
-	async def mute(self, ctx, *args):
+	async def brokenmute(self, ctx, *args):
 		allowed = False
 		if p := utils.admin_dash_o(ctx, args, 0):
 			allowed = True
@@ -147,7 +172,7 @@ class Moderation(commands.Cog):
 
 	@commands.command()
 	@commands.bot_has_permissions(manage_roles=True)
-	async def unmute(self, ctx, *args):
+	async def brokenunmute(self, ctx, *args):
 		allowed = False
 		if p := utils.admin_dash_o(ctx, args, 0):
 			allowed = True

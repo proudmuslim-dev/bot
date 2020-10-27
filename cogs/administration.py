@@ -4,7 +4,7 @@ from contextlib import redirect_stdout
 from termcolor import cprint
 import io, textwrap, traceback, os
 
-owners = [573986854366347274, 252104964753719296,]
+owners = [573986854366347274]
 
 
 async def is_owner(ctx):

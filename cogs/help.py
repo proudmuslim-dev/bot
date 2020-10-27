@@ -36,17 +36,6 @@ class Help(Cog):
 
         await ctx.send(embed=embed)
 
-    @command(name="help guild", aliases=["help server", "h servcr", "h guild"])
-    async def help_guild(self, ctx):
-        embed = discord.Embed(title="**Help for Server Commands**")
-
-        """Server Commands"""
-        servcmd = "Server - Usage: >>server | Output: an embed with information on the server, includes information from all commands in this category | Aliases: guild, g, s\n"
-        servcmd +="\nTotal - Usage: >>total | Output: an embed with the total roles, channels, and members of the server\n"
-        servcmd += "\nMembers - Usage: >>members | Output: an embed displaying the total memebers of the guild\n"
-
-        embed.add_field(name="Commands:", value=servcmd, inline=False)
-
     @command(name="help misc", aliases=["h misc", "help miscellaneous", "h miscellaneous"])
     async def help_misc(self, ctx):
         embed = discord.Embed(title="**Help for Miscellaneous Commands**")
