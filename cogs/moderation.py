@@ -1,7 +1,33 @@
 import discord, traceback
 import json
+from discord import NotFound
 from discord.ext import commands
+from discord.ext.commands import Converter, BadArgument
 from util import utils # Your IDE will throw an error, ignore it, it's being dumb. Everything will be fine as long as you run bot.py from the directory it is in.
+
+
+# The following class contains modified code from https://github.com/Carberra/updated-discord.py-tutorial
+class BannedUser(Converter):
+	async def convert(self, ctx, arg):
+		if ctx.guild.me.guild_permissions.ban_members:
+			if arg.isdigit():
+				try:
+					return await ctx.guild.fetch_ban(discord.Object(id=int(arg)))
+				except NotFound:
+					raise BadArgument
+
+		banned = []			
+
+		for e in await ctx.guild.bans():
+			banned.append(e.user)		
+
+		if banned:
+			if (user := discord.utils.find(lambda u: str(u).lower() == arg.lower(), banned)) is not None:
+				return user
+
+			else: 
+				raise BadArgument
+
 
 
 class Moderation(commands.Cog):
@@ -26,30 +52,38 @@ class Moderation(commands.Cog):
 		await member.kick(reason=reason)
 		await ctx.send(":white_check_mark: Successfully kicked user")
 
+	@commands.command(aliases=["ub"])
+	@commands.has_permissions(ban_members=True)
+	@commands.bot_has_permissions(ban_members=True)
+	async def unban(self, ctx, member: discord.Member):
+		print(await ctx.guild.bans())
+
 
 	@commands.command(aliases=["m"])
 	@commands.has_permissions(manage_roles=True)
 	@commands.bot_has_permissions(manage_roles=True)
-	async def mute(self, ctx, member: discord.Member, *, reason=None):
-		for role in ctx.guild.roles:
-			if role.name.lower() == "muted":
-				await member.add_roles(discord.utils.get(ctx.guild.roles, name="muted"))
-				embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
-				embed.add_field(name="Success", value=f":white_check_mark: {member.name}#{member.discriminator} was muted successfully.")
-				embed.set_footer(icon_url=ctx.author.avatar_url, text=f"Muted by: {ctx.author.name}#{ctx.author.discriminator}")
-				await ctx.send(embed=embed)
-
-				role_exists = True
-				return role_exists
-
-		if not role_exists:
-			await ctx.guild.create_role(name="muted")
+	async def mute(self, ctx, member: discord.Member):
+		roles = [role.name.lower() for role in ctx.guild.roles]
+		if "muted" in roles:
 			await member.add_roles(discord.utils.get(ctx.guild.roles, name="muted"))
-			await ctx.send(f":white_check_mark: {member.name} was muted")
 
-		
+		else:
+			perms = discord.Permissions(send_messages=False, read_messages=True)
+			await ctx.guild.create_role(name="muted", permissions=perms)
+			await member.add_roles(discord.utils.get(ctx.guild.roles, name="muted"))
 
 
+	@commands.command(aliases=["um"])
+	@commands.has_permissions(manage_roles=True)
+	@commands.bot_has_permissions(manage_roles=True)
+	async def unmute(self, ctx, member: discord.Member):
+		roles = [role.name.lower() for role in member.roles]
+		if "muted" in roles:
+			await member.remove_roles(discord.utils.get(ctx.guild.roles, name="muted"))
+		else:
+			embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
+			embed.add_field(name="Error when running unmute", value=f"<:disagree:767758599916486717> User `{member.name}#{member.discriminator}` is not muted")
+			await ctx.send(embed=embed)
 
 
 	@commands.has_permissions(ban_members=True)
@@ -214,7 +248,9 @@ class Moderation(commands.Cog):
 	@commands.has_permissions(manage_channels=True)
 	async def channelstats(self, ctx): 
 		channel = ctx.channel 
+
 		embed = discord.Embed(title=f"Stats for **{channel.name}**", description=f"{'Category: {}'.format(channel.category.name) if channel.category else 'This channel is not in a category'}", color=discord.Colour.from_rgb(0, 255, 255))
+
 		embed.add_field(name="Channel Guild", value=ctx.guild.name, inline=False)
 		embed.add_field(name="Channel Id", value=channel.id, inline=False)
 		embed.add_field(name="Channel Topic", value=f"{channel.topic if channel.topic else 'No topic.'}", inline=False)
@@ -225,6 +261,7 @@ class Moderation(commands.Cog):
 		embed.add_field(name="Channel Creation Time", value=channel.created_at, inline=False)
 		embed.add_field(name="Channel Permissions Synced", value=channel.permissions_synced, inline=False)
 		embed.add_field(name="Channel Hash", value=hash(channel), inline=False)
+
 		embed.set_footer(icon_url=ctx.author.avatar_url, text=f"Requested by: {ctx.author.name}")
 
 		await ctx.send(embed=embed)

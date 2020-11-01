@@ -26,6 +26,13 @@ class Misc(commands.Cog):
             args = "someone"
         await ctx.send(f":dagger_knife: Sucessfully killed {args}")
 
+    @commands.command(aliases=["snipe"])
+    async def shoot(self, ctx, args=None):
+        if not args:
+            args = "someone"
+        await ctx.send(f":gun: Sucessfully shot {args}")
+
+
     @commands.command()
     async def pong(self, ctx):
         embed = discord.Embed(color=discord.Colour.from_rgb(255, 130, 53))
@@ -40,10 +47,11 @@ class Misc(commands.Cog):
 
     @commands.command()
     async def repeat(self, ctx, *, arg=None):
+        args = discord.utils.escape_mentions(str(arg))
         if arg is None:
             await ctx.send(":x: Include something to repeat")
         else:
-            await ctx.send(arg)
+            await ctx.send(args)
 
     @commands.command(name="8ball")
     async def eight_ball(self, ctx):
@@ -101,6 +109,7 @@ class Misc(commands.Cog):
         embed.set_footer(icon_url=ctx.author.avatar_url, text=f"Requested by: {ctx.author.name}")
 
         await ctx.send(embed=embed)
+
 
     
 def setup(client):

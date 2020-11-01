@@ -1,4 +1,5 @@
-import json, discord, os, time
+import json,os, time
+import discord
 from util import vars
 from discord.ext import commands
 from termcolor import cprint
@@ -59,6 +60,7 @@ async def on_ready():
 	bg2 = time.perf_counter_ns()
 	cprint(f"Finished initialization in {(bg2-bg1)/1000000.0}ms!", "green", attrs=["bold"])
 	await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="The infinite expanse of our universe"))
+
 
 
 @client.event
