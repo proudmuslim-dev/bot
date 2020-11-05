@@ -44,13 +44,20 @@ class Moderation(commands.Cog):
 	async def ban(self, ctx, member: discord.Member, *, reason=None):
 		await member.ban(reason=reason)
 		await ctx.send(":white_check_mark: Successfully banned user")
+		embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
+		embed.add_field(name="Success", value=f"<:agree:767519006315773993> User `{member.name}#{member.discriminator}` was banned")
+		await ctx.send(embed=embed)
 
 	@commands.command(aliases=["boot"])
 	@commands.has_permissions(kick_members=True)
 	@commands.bot_has_permissions(kick_members=True)
 	async def kick(self, ctx, member: discord.Member, *, reason=None):
 		await member.kick(reason=reason)
-		await ctx.send(":white_check_mark: Successfully kicked user")
+		embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
+		embed.add_field(name="Success", value=f"<:agree:767519006315773993> User `{member.name}#{member.discriminator}` was kicked")
+		await ctx.send(embed=embed)
+
+
 
 	@commands.command(aliases=["ub"])
 	@commands.has_permissions(ban_members=True)
@@ -72,6 +79,9 @@ class Moderation(commands.Cog):
 			await ctx.guild.create_role(name="muted", permissions=perms)
 			await member.add_roles(discord.utils.get(ctx.guild.roles, name="muted"))
 
+		embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
+		embed.add_field(name="Success", value=f"<:agree:767519006315773993> User `{member.name}#{member.discriminator}` was muted")
+		await ctx.send(embed=embed)
 
 	@commands.command(aliases=["um"])
 	@commands.has_permissions(manage_roles=True)
@@ -80,6 +90,9 @@ class Moderation(commands.Cog):
 		roles = [role.name.lower() for role in member.roles]
 		if "muted" in roles:
 			await member.remove_roles(discord.utils.get(ctx.guild.roles, name="muted"))
+			embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
+			embed.add_field(name="Success", value=f"<:agree:767519006315773993> User `{member.name}#{member.discriminator}` was unmuted")
+			await ctx.send(embed=embed)
 		else:
 			embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
 			embed.add_field(name="Error when running unmute", value=f"<:disagree:767758599916486717> User `{member.name}#{member.discriminator}` is not muted")

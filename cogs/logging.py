@@ -21,7 +21,7 @@ class Logging(commands.Cog):
             embed.add_field(name=f"Message by {message.author} deleted in #{message.channel.name}",
                             value=message.content)
             embed.set_footer(
-                icon_url="https://cdn.discordapp.com/avatars/573986854366347274/76b36e11e0757464a6477f480bf5f543.webp?size=1024",
+                icon_url="https://cdn.discordapp.com/avatars/573986854366347274/ddff32c78e30ee32f7771eb562dfdba3.webp?size=1024",
                 text="Developed by 𝓟𝓻𝓸𝓾𝓭𝓶𝓾𝓼𝓵𝓲𝓶#5818")
             await channel.send(embed=embed)
 

@@ -14,25 +14,11 @@ class Help(Cog):
         helpmsg = "[Commands (WIP)](https://github.com/proudmuslim-dev/bot/blob/master/commands/commands.md)\n"
         helpmsg += "[Source Code](https://github.com/proudmuslim-dev/bot)\n"
         helpmsg += "[Support Server](https://discord.gg/8KSuJSY)\n"
+        helpmsg += "[Invite](https://discord.com/oauth2/authorize?client_id=717215043724509275&scope=bot&permissions=8)"
 
         embed.add_field(name="Help", value=helpmsg)
       
         embed.set_footer(icon_url=ctx.author.avatar_url, text=f"Requested by: {ctx.author.name}")
-
-        await ctx.send(embed=embed)
-
-    @command(name="help util", aliases=["help utils", "help utility", "help utilities", "h utils", "h utilities", "h utility"])
-    async def help_util(self, ctx):
-        embed = discord.Embed(title= "**Help for Utility Commands**", color=discord.Colour.from_rgb(255, 150, 53))
- 
-        """utility commands"""
-        utilcmd = "Whois - Usage: >>whois <user> | Output: An embed with user information, defaults to the sender\n"
-        utilcmd += "\nAvatar - Usage: >>avatar <user> | Output: The user's avatar, defaults to the sender\n"
-        utilcmd += "\nRoles - Usage: >>roles <user> | Output: An embed with a list of all the user's roles\n"
-        utilcmd += "\nUserid - Usage: >>uid <user> | Output: aAn embed with the given user's ID. Aliases:  \n"
-        utilcmd += "\nChannelstats - Usage: >>cs | Displays channel stats for the current channel | **Currently working on implementing a way to use this on channels other than the one you are in**\n"
-        
-        embed.add_field(name="Commands:", value=utilcmd)
 
         await ctx.send(embed=embed)
 
