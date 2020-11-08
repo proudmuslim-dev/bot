@@ -69,7 +69,7 @@ class Moderation(commands.Cog):
 	@commands.command(aliases=["m"])
 	@commands.has_permissions(manage_roles=True)
 	@commands.bot_has_permissions(manage_roles=True)
-	async def mute(self, ctx, member: discord.Member):
+	async def mute(self, ctx, member: discord.Member): # TODO: Add optional reason param and make bot dm member.
 		roles = [role.name.lower() for role in ctx.guild.roles]
 		if "muted" in roles:
 			await member.add_roles(discord.utils.get(ctx.guild.roles, name="muted"))

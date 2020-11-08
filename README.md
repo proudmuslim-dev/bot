@@ -1,5 +1,8 @@
+<div align="center">
+
 # Overseer  
-#### ![Overseer](https://cdn.discordapp.com/avatars/717215043724509275/a82627ad58710534531cec935abd5e87.webp?size=512 "Overseer")
+[Invite](https://discord.com/oauth2/authorize?client_id=717215043724509275&scope=bot&permissions=8)
+</div>
 
 Overseer is a multi purpose, open source discord bot, developed primarily by 𝓟𝓻𝓸𝓾𝓭𝓶𝓾𝓼𝓵𝓲𝓶#5818. I made this bot as a sort of side project, and as something for other people to base their code off of. 
 - The bot is still very much a work in progress, and contributions from others are more than welcome.
