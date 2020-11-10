@@ -98,6 +98,79 @@ class Moderation(commands.Cog):
 			embed.add_field(name="Error when running unmute", value=f"<:disagree:767758599916486717> User `{member.name}#{member.discriminator}` is not muted")
 			await ctx.send(embed=embed)
 
+	@commands.command(aliases=['cs', "channel"])
+	@commands.has_permissions(manage_channels=True)
+	async def channelstats(self, ctx): 
+		channel = ctx.channel 
+
+		embed = discord.Embed(title=f"Stats for **{channel.name}**", description=f"{'Category: {}'.format(channel.category.name) if channel.category else 'This channel is not in a category'}", color=discord.Colour.from_rgb(0, 255, 255))
+
+		embed.add_field(name="Channel Guild", value=ctx.guild.name, inline=False)
+		embed.add_field(name="Channel Id", value=channel.id, inline=False)
+		embed.add_field(name="Channel Topic", value=f"{channel.topic if channel.topic else 'No topic.'}", inline=False)
+		embed.add_field(name="Channel Position", value=channel.position, inline=False)
+		embed.add_field(name="Channel Slowmode Delay", value=channel.slowmode_delay, inline=False)
+		embed.add_field(name="Channel is nsfw?", value=channel.is_nsfw(), inline=False)
+		embed.add_field(name="Channel is news?", value=channel.is_news(), inline=False)
+		embed.add_field(name="Channel Creation Time", value=channel.created_at, inline=False)
+		embed.add_field(name="Channel Permissions Synced", value=channel.permissions_synced, inline=False)
+		embed.add_field(name="Channel Hash", value=hash(channel), inline=False)
+
+		embed.set_footer(icon_url=ctx.author.avatar_url, text=f"Requested by: {ctx.author.name}")
+
+		await ctx.send(embed=embed)
+
+	@commands.command(aliases=["w", "wrn",])
+	@commands.has_permissions(manage_messages=True)
+	async def warn(self, ctx, user_id=None, *, args=None):
+		if None not in (user_id, args):
+			try:
+				target = await self.client.fetch_user(user_id)
+				await target.send(f"You were warned in {ctx.guild.name} for {args}")
+				await self.client.fetch_user
+			except:
+				await ctx.send(f"Failed to warn {target.name}")
+			else:
+				await ctx.send(f":white_check_mark: {target.name} was warned")
+
+		else:
+			await ctx.send("You are missing a user/message in your warning")
+
+	@commands.command(hidden=True)
+	async def channels(self, ctx):
+		x = 1 
+		for channel in ctx.guild.channels:
+			x+=1
+		await ctx.send(f"Total channels: {x}")
+				
+
+	@commands.command(aliases=["wipe"])
+	@commands.has_permissions(manage_messages=True)
+	async def purge(self, ctx, amount: int, silent=None):
+		if silent == "--silent":
+			await ctx.message.delete()
+			await ctx.channel.purge(limit=amount)
+		else:
+			await ctx.channel.purge(limit=amount + 1)
+			await ctx.send(f":white_check_mark: Successfully deleted messages")
+
+	@commands.command(aliases=["cp", "prefix"])
+	@commands.has_permissions(manage_guild=True)
+	async def changeprefix(self, ctx, prefix):
+		embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
+		embed.add_field(name=f"Prefix Changed for {ctx.guild.name}", value=f"```New Prefix: [{prefix}] ```")
+		embed.set_footer(icon_url=ctx.author.avatar_url, text=f"Prefix Changed by: {ctx.author.name}")
+
+		await ctx.send(embed=embed)
+
+		with open('prefixes.json', 'r') as f:
+			prefixes = json.load(f)
+
+		prefixes[str(ctx.guild.id)] = prefix
+
+		with open("prefixes.json", 'w') as f:
+			json.dump(prefixes, f, indent=4)
+
 
 	@commands.has_permissions(ban_members=True)
 	@commands.bot_has_permissions(ban_members=True)
@@ -257,78 +330,6 @@ class Moderation(commands.Cog):
 				await ctx.send("\n".join([f"{y}:"] + unmutes[y])) if unmutes[y] else 0
 
 
-	@commands.command(aliases=['cs', "channel"])
-	@commands.has_permissions(manage_channels=True)
-	async def channelstats(self, ctx): 
-		channel = ctx.channel 
-
-		embed = discord.Embed(title=f"Stats for **{channel.name}**", description=f"{'Category: {}'.format(channel.category.name) if channel.category else 'This channel is not in a category'}", color=discord.Colour.from_rgb(0, 255, 255))
-
-		embed.add_field(name="Channel Guild", value=ctx.guild.name, inline=False)
-		embed.add_field(name="Channel Id", value=channel.id, inline=False)
-		embed.add_field(name="Channel Topic", value=f"{channel.topic if channel.topic else 'No topic.'}", inline=False)
-		embed.add_field(name="Channel Position", value=channel.position, inline=False)
-		embed.add_field(name="Channel Slowmode Delay", value=channel.slowmode_delay, inline=False)
-		embed.add_field(name="Channel is nsfw?", value=channel.is_nsfw(), inline=False)
-		embed.add_field(name="Channel is news?", value=channel.is_news(), inline=False)
-		embed.add_field(name="Channel Creation Time", value=channel.created_at, inline=False)
-		embed.add_field(name="Channel Permissions Synced", value=channel.permissions_synced, inline=False)
-		embed.add_field(name="Channel Hash", value=hash(channel), inline=False)
-
-		embed.set_footer(icon_url=ctx.author.avatar_url, text=f"Requested by: {ctx.author.name}")
-
-		await ctx.send(embed=embed)
-
-	@commands.command(aliases=["w", "wrn",])
-	@commands.has_permissions(manage_messages=True)
-	async def warn(self, ctx, user_id=None, *, args=None):
-		if None not in (user_id, args):
-			try:
-				target = await self.client.fetch_user(user_id)
-				await target.send(f"You were warned in {ctx.guild.name} for {args}")
-				await self.client.fetch_user
-			except:
-				await ctx.send(f"Failed to warn {target.name}")
-			else:
-				await ctx.send(f":white_check_mark: {target.name} was warned")
-
-		else:
-			await ctx.send("You are missing a user/message in your warning")
-
-	@commands.command(hidden=True)
-	async def channels(self, ctx):
-		x = 1 
-		for channel in ctx.guild.channels:
-			x+=1
-		await ctx.send(f"Total channels: {x}")
-				
-
-	@commands.command(aliases=["wipe"])
-	@commands.has_permissions(manage_messages=True)
-	async def purge(self, ctx, amount: int, silent=None):
-		if silent == "--silent":
-			await ctx.message.delete()
-			await ctx.channel.purge(limit=amount)
-		else:
-			await ctx.channel.purge(limit=amount + 1)
-			await ctx.send(f":white_check_mark: Successfully deleted messages")
-
-	@commands.command(aliases=["cp", "prefix"])
-	@commands.has_permissions(manage_guild=True)
-	async def changeprefix(self, ctx, prefix):
-		embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
-		embed.add_field(name=f"Prefix Changed for {ctx.guild.name}", value=f"```New Prefix: [{prefix}] ```")
-		embed.set_footer(icon_url=ctx.author.avatar_url, text=f"Prefix Changed by: {ctx.author.name}")
-
-		await ctx.send(embed=embed)
-
-		with open('prefixes.json', 'r') as f:
-			prefixes = json.load(f)
-
-		prefixes[str(ctx.guild.id)] = prefix
-
-		with open("prefixes.json", 'w') as f:
-			json.dump(prefixes, f, indent=4)
 
 
 def setup(client):
