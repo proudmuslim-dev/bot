@@ -24,7 +24,7 @@ class Administration(commands.Cog):
 			await self.client.logout()
 
 		else: 
-			await ctx.send(":x: You are not one of my owners and therefore are incapable of ameliorating yourself to the stations required to operate this command.")
+			await ctx.send("<:disagree:767758599916486717> You are not one of my owners and therefore are incapable of ameliorating yourself to the stations required to operate this command.")
 
 	# Copyright (c) 2015 Rapptz - Modified Slightly
 	@commands.command(hidden=True, name="eval")

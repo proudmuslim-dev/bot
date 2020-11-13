@@ -15,6 +15,8 @@ def get_prefix(client, message):
 
 	return prefix
 
+intents = discord.Intents(messages=True, guilds=True, members=True, typing=False, presences=False, bans=True, dm_messages=False)
+
 class BotPlus(commands.Bot):
 	"""Somewhat improved bot, this code will likely be left untouched for a long time"""
 
@@ -31,7 +33,7 @@ class BotPlus(commands.Bot):
 		else:
 			super().run(token)
 
-client = BotPlus(command_prefix=get_prefix, case_insensitive=True)
+client = BotPlus(command_prefix=get_prefix, case_insensitive=True, intents=intents, allowed_mentions=discord.AllowedMentions(everyone=False, roles=False))
 
 if __name__ == "__main__": # Nice code
 	cprint("Loading extensions...", "green", attrs=["bold"]) # IT HAS TAKEN ME COMBINED...not long actually probably like
