@@ -13,7 +13,7 @@ def get_prefix(client, message):
 
 	prefix = prefixes.get(str(message.guild.id), ">")
 
-	return prefix
+	return [prefix, "seer "]
 
 intents = discord.Intents(messages=True, guilds=True, members=True, typing=False, presences=False, bans=True, dm_messages=False)
 
