@@ -155,7 +155,7 @@ class Moderation(commands.Cog):
 			await ctx.send(f":white_check_mark: Successfully deleted messages")
 
 	@commands.command(aliases=["cp", "prefix"])
-	async def changeprefix(self, ctx, prefix=None): # Make this tell normal users what the server prefix is
+	async def changeprefix(self, ctx, prefix=None): 
 		embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
 
 		with open('prefixes.json', 'r') as f:
