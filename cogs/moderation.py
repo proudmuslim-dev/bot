@@ -138,9 +138,7 @@ class Moderation(commands.Cog):
 
 	@commands.command(hidden=True)
 	async def channels(self, ctx):
-		x = 1 
-		for channel in ctx.guild.channels:
-			x+=1
+		x = len(ctx.guild.channels)
 		await ctx.send(f"Total channels: {x}")
 				
 
