@@ -155,22 +155,29 @@ class Moderation(commands.Cog):
 			await ctx.send(f":white_check_mark: Successfully deleted messages")
 
 	@commands.command(aliases=["cp", "prefix"])
-	@commands.has_permissions(manage_guild=True)
-	async def changeprefix(self, ctx, prefix):
+	async def changeprefix(self, ctx, prefix=None): # Make this tell normal users what the server prefix is
 		embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
-		embed.add_field(name=f"Prefix Changed for {ctx.guild.name}", value=f"```New Prefix: [{prefix}] ```")
-		embed.set_footer(icon_url=ctx.author.avatar_url, text=f"Prefix Changed by: {ctx.author.name}")
-
-		await ctx.send(embed=embed)
 
 		with open('prefixes.json', 'r') as f:
 			prefixes = json.load(f)
 
-		prefixes[str(ctx.guild.id)] = prefix
 
-		with open("prefixes.json", 'w') as f:
-			json.dump(prefixes, f, indent=4)
+		if prefix != None and ctx.author.has_permissions(manage_guild=True):
+			prefixes[str(ctx.guild.id)] = prefix
 
+			with open("prefixes.json", 'w') as f:
+				json.dump(prefixes, f, indent=4)
+
+			embed.add_field(name=f"Prefix Changed for {ctx.guild.name}", value=f"```New Prefix: [{prefix}] ```")
+
+		else:
+			prefix = prefixes[str(ctx.guild.id)]
+
+			embed.add_field(name=f"Prefix for {ctx.guild.name}", value=f"```Prefix: [{prefix}] ```")
+
+		embed.set_footer(icon_url=ctx.author.avatar_url, text=f"Prefix Changed by: {ctx.author.name}")
+
+		await ctx.send(embed=embed)
 
 	@commands.has_permissions(ban_members=True)
 	@commands.bot_has_permissions(ban_members=True)
