@@ -18,7 +18,7 @@ class MessageSearch(Cog):
         val = ""
 
         async for message in ctx.channel.history(limit=amount):
-            if text.lower() in message.content.lower():
+            if text.lower() in message.content.lower() and message != ctx.message:
                 val += f"- {message.jump_url}\n"
 
         embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
