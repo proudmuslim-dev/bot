@@ -120,21 +120,17 @@ class Moderation(commands.Cog):
 
 		await ctx.send(embed=embed)
 
+
 	@commands.command(aliases=["w", "wrn",])
 	@commands.has_permissions(manage_messages=True)
-	async def warn(self, ctx, user_id=None, *, args=None):
-		if None not in (user_id, args):
-			try:
-				target = await self.client.fetch_user(user_id)
-				await target.send(f"You were warned in {ctx.guild.name} for {args}")
-				await self.client.fetch_user
-			except:
-				await ctx.send(f"Failed to warn {target.name}")
-			else:
-				await ctx.send(f":white_check_mark: {target.name} was warned")
+	async def warn(self, ctx, member: discord.Member, *, args):
+		try:
+			await member.send(f"You were warned in {ctx.guild.name} for: {args}")
+			await ctx.send(f"<:agree:767519006315773993> Successfully warned {member.name}#{member.discriminator}")
+		except:
+			await ctx.send(f"Couldn't warn {member.name}#{member.discriminator}.")
 
-		else:
-			await ctx.send("You are missing a user/message in your warning")
+
 
 	@commands.command(hidden=True)
 	async def channels(self, ctx):

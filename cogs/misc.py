@@ -21,11 +21,17 @@ class Misc(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(aliases=["murder"])
-    async def kill(self, ctx, args=None):
+    async def kill(self, ctx, *, args=None):
         if not args:
             args = "someone"
         await ctx.send(f":dagger_knife: Sucessfully killed {args}")
 
+    @commands.command(aliases=["shank"])
+    async def stab(self, ctx, *, args=None):
+        if not args:
+            args = "someone"
+        await ctx.send(f":dagger_knife: Sucessfully stabbed {args}")
+        
     @commands.command(aliases=["snipe"])
     async def shoot(self, ctx, *, args=None):
         if not args:

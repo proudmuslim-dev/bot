@@ -37,6 +37,22 @@ class Welcome(commands.Cog):
             await channel.send(f"Please welcome {member.mention} to {member.guild.name}")
             await channel.send(embed=embed)
 
+        if member.guild.id in [778714948779114516]:
+            channel = discord.utils.get(member.guild.channels, name="welcome")
+
+            embed = discord.Embed(title=f"User info for {member.name}", color=discord.Colour.from_rgb(255, 150, 53))
+            embed.add_field(name="User ID", value=member.id, inline=False)
+            embed.add_field(name="Account Creation Date",
+                            value=member.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"), inline=True)
+            embed.add_field(name="Joined Server on", value=member.joined_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"),
+                            inline=True)
+            embed.set_thumbnail(url=member.avatar_url)
+
+            await channel.send(f"Please welcome {member.mention} to {member.guild.name}")
+            await channel.send(embed=embed)
+
+
+
 
 def setup(client):
     client.add_cog(Welcome(client))
