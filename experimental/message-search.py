@@ -22,13 +22,13 @@ class MessageSearch(Cog):
                 val += f"- {message.jump_url}\n"
 
         embed = discord.Embed(color=discord.Colour.from_rgb(255, 150, 53))
-        def foo():
+        def x():
             if val != "":
                 return val
 
             else:
                 return None
-        embed.add_field(name="Matches for Text Provided", value=foo())
+        embed.add_field(name="Matches for Text Provided", value=x())
         embed.set_footer(icon_url=ctx.author.avatar_url, text=f"Requested by: {ctx.author.name}")
 
         await ctx.send(embed=embed)
