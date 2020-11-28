@@ -20,6 +20,11 @@ class Chat(commands.Cog):
                 else:
                     pass
 
+            elif message.guild.id in [754012537296781483] and "i'm on venus" in message.content.lower():
+                await message.delete()
+                await message.author.send("No")
+
+
 
 
 
