@@ -11,7 +11,8 @@ class Chat(commands.Cog):
     async def on_message(self, message):
         pattern = "(?:https?:\/\/)?((?:dis\.gd|discord\.(?:gg|io|me)|invite\.gg)\/([a-zA-Z0-9\-]+))"
         if message.guild.id in [743073728853835828]:
-            if message.author.id not in [252104964753719296, 196271012717789184,
+            if message.author.id not in [
+            252104964753719296, 196271012717789184,
             573986854366347274, 234322190714011648,
             475263799511875584, 689590579935707241, 
             172309577134505985]:
