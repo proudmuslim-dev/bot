@@ -1,8 +1,13 @@
-import json,os, time
-import discord
-from util import vars
+from discord_slash.utils import manage_commands
 from discord.ext import commands
 from termcolor import cprint
+from util import vars
+
+import discord_slash
+import discord
+import json
+import time
+import os
 
 cprint("Initializing bot...", "green", attrs=["bold"])
 bg1 = time.perf_counter_ns()
@@ -34,6 +39,7 @@ class BotPlus(commands.Bot):
 			super().run(token)
 
 client = BotPlus(command_prefix=get_prefix, case_insensitive=True, intents=intents, allowed_mentions=discord.AllowedMentions(everyone=False, roles=False))
+slash = discord_slash.SlashCommand(client, override_type=True)
 
 if __name__ == "__main__": # Nice code
 	cprint("Loading extensions...", "green", attrs=["bold"]) # IT HAS TAKEN ME COMBINED...not long actually probably like

@@ -46,9 +46,7 @@ class Misc(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def fax(self, ctx, args=None):
-        if args == "-s" or "--silent":
-            await ctx.message.delete()
+    async def fax(self, ctx,):
         await ctx.send("https://fax.pics")
 
     @commands.command()
